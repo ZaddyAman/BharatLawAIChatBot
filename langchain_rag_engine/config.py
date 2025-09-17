@@ -117,8 +117,8 @@ def load_config() -> AppConfig:
         "google_client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
         "github_client_id": os.getenv("GITHUB_CLIENT_ID"),
         "github_client_secret": os.getenv("GITHUB_CLIENT_SECRET"),
-        "allowed_origins": os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,https://bharatlawainew-production.up.railway.app").split(",") if os.getenv("ALLOWED_ORIGINS") else ["http://localhost:5173", "http://127.0.0.1:5173", "https://bharatlawainew-production.up.railway.app"],
-        "allowed_hosts": os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,bharatlawainew-production.up.railway.app").split(",") if os.getenv("ALLOWED_HOSTS") else ["localhost", "127.0.0.1", "bharatlawainew-production.up.railway.app"],
+        "allowed_origins": os.getenv("ALLOWED_ORIGINS", "bharatlawaichatbot-production.up.railway.app").split(",") if os.getenv("ALLOWED_ORIGINS") else ["bharatlawaichatbot-production.up.railway.app"],
+        "allowed_hosts": os.getenv("ALLOWED_HOSTS", "bharatlawaichatbot-production.up.railway.app").split(",") if os.getenv("ALLOWED_HOSTS") else ["bharatlawaichatbot-production.up.railway.app"],
     }
 
     try:
@@ -192,5 +192,6 @@ def validate_config_for_environment() -> list:
 
     if len(config.secret_key) < 32:
         warnings.append("❌ SECRET_KEY is too short - must be at least 32 characters")
+
 
     return warnings
