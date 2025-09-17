@@ -1,39 +1,40 @@
 # Core Web Framework
-fastapi==0.104.1
-uvicorn==0.24.0
-pydantic[email]==2.5.0
+fastapi
+uvicorn
+pydantic[email]
 
 # AI/ML Dependencies (Remote Embeddings)
-python-dotenv==1.0.0
-beautifulsoup4==4.12.2
-requests==2.31.0
-httpx==0.25.2  # For remote API calls
+python-dotenv
+beautifulsoup4
+requests
+httpx  # For remote API calls
 
 # Database
-sqlalchemy==2.0.23
-psycopg2-binary==2.9.9
+sqlalchemy
+psycopg2-binary
 
 # Authentication
 passlib[bcrypt]==1.7.4
 bcrypt==4.0.1
-python-jose[cryptography]==3.3.0
-python-multipart==0.0.6
+python-jose[cryptography]
+python-multipart
 
 # Data Processing
-kagglehub==0.1.9
-PyPDF2==3.0.1
-PyMuPDF==1.23.7
+kagglehub
+PyPDF2
+PyMuPDF
 
 # RAG System (Pinecone + Remote Embeddings)
-langchain==0.3.0
-langchain-community==0.3.0  # For remote embeddings
-voyageai==0.2.3  # Remote embeddings for legal documents
-pinecone-client==2.2.4
-langchain-voyageai==0.1.2
-langchain-openai==0.2.0
-rank-bm25==0.2.2
+langchain
+langchain-community  # For remote embeddings
+langchain-huggingface # For HuggingFace remote embeddings
+voyageai
+pinecone 
+langchain-voyageai
+langchain_openai
+rank-bm25
 
 # Performance & Monitoring
-psutil==5.9.6
-uvloop==0.19.0
-cachetools==5.3.2
+psutil
+uvloop
+cachetools
