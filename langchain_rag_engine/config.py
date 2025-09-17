@@ -27,7 +27,7 @@ class AppConfig(BaseModel):
     admin_emails: List[str] = []
 
     # Performance settings
-    max_concurrent_streams: int = 3
+    max_concurrent_streams: int = 15
 
     # External service configurations
     openrouter_api_key: Optional[str] = None
@@ -195,3 +195,4 @@ def validate_config_for_environment() -> list:
 
 
     return warnings
+
