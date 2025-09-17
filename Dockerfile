@@ -100,4 +100,3 @@ EXPOSE ${PORT:-8000}
 # Railway-optimized startup command with better configuration
 
 CMD ["sh", "-c", "echo '🚀 Starting BharatLawAI Backend...' && echo '📊 Port: '${PORT:-8000} && echo '🌍 Environment: '${ENVIRONMENT:-production} && uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1 --loop uvloop --http h11 --access-log --log-level ${LOG_LEVEL:-info}"]
-
