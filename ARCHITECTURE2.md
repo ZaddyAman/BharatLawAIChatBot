@@ -230,16 +230,57 @@ sequenceDiagram
     participant B as Backend
     participant D as Database
     participant J as JWT
+    participant G as Google OAuth
+    participant GH as GitHub OAuth
 
-    U->>F: Login Request
-    F->>B: POST /auth/token
-    B->>D: Verify Credentials
-    D-->>B: User Data
-    B->>J: Generate Token
-    J-->>B: JWT Token
-    B-->>F: Token Response
-    F->>F: Store Token (Secure)
-    F-->>U: Login Success
+    %% Traditional Username/Password Flow
+    rect rgb(240, 240, 240)
+        U->>F: Login Request (Email/Password)
+        F->>B: POST /auth/token
+        B->>D: Verify Credentials
+        D-->>B: User Data
+        B->>J: Generate Token
+        J-->>B: JWT Token
+        B-->>F: Token Response
+        F->>F: Store Token (Secure)
+        F-->>U: Login Success
+    end
+
+    %% OAuth 2.0 Google Flow
+    rect rgb(220, 235, 255)
+        U->>F: Click "Login with Google"
+        F->>B: GET /auth/google
+        B-->>U: Redirect to Google OAuth
+        U->>G: Google Authentication
+        G-->>B: Authorization Code
+        B->>G: Exchange Code for Token
+        G-->>B: Access Token & User Info
+        B->>D: Create/Update User
+        D-->>B: User Data
+        B->>J: Generate JWT Token
+        J-->>B: JWT Token
+        B-->>F: Redirect with Token
+        F->>F: Store Token (Secure)
+        F-->>U: OAuth Login Success
+    end
+
+    %% OAuth 2.0 GitHub Flow
+    rect rgb(235, 255, 220)
+        U->>F: Click "Login with GitHub"
+        F->>B: GET /auth/github
+        B-->>U: Redirect to GitHub OAuth
+        U->>GH: GitHub Authentication
+        GH-->>B: Authorization Code
+        B->>GH: Exchange Code for Token
+        GH-->>B: Access Token & User Info
+        B->>D: Create/Update User
+        D-->>B: User Data
+        B->>J: Generate JWT Token
+        J-->>B: JWT Token
+        B-->>F: Redirect with Token
+        F->>F: Store Token (Secure)
+        F-->>U: OAuth Login Success
+    end
 ```
 
 ### RAG Query Flow
@@ -610,184 +651,6 @@ graph TD
     M --> P
     N --> P
     O --> P
-```
-
-## 🚀 Deployment Architecture
-
-### Railway Deployment
-
-```mermaid
-graph TD
-    subgraph "Railway Platform"
-        A[Railway App]
-        B[PostgreSQL Database]
-        C[Redis Cache]
-        D[File Storage]
-    end
-
-    subgraph "Application Containers"
-        E[Backend Container]
-        F[Worker Container]
-        G[Migration Container]
-    end
-
-    subgraph "External Services"
-        H[Pinecone]
-        I[Voyage AI]
-        J[OpenRouter]
-        K[SMTP Service]
-    end
-
-    A --> B
-    A --> C
-    A --> D
-
-    A --> E
-    A --> F
-    A --> G
-
-    E --> H
-    E --> I
-    E --> J
-    E --> K
-
-    F --> H
-    F --> I
-    F --> J
-
-    G --> B
-```
-
-### Vercel Deployment (Frontend)
-
-```mermaid
-graph TD
-    subgraph "Vercel Platform"
-        A[Vercel App]
-        B[Edge Network]
-        C[CDN]
-        D[Analytics]
-    end
-
-    subgraph "Build Process"
-        E[Vite Build]
-        F[TypeScript Compilation]
-        G[Asset Optimization]
-        H[Code Splitting]
-    end
-
-    subgraph "Runtime"
-        I[React Application]
-        J[Service Worker]
-        K[Error Boundaries]
-        L[Performance Monitoring]
-    end
-
-    A --> B
-    A --> C
-    A --> D
-
-    A --> E
-    E --> F
-    F --> G
-    G --> H
-
-    H --> I
-    I --> J
-    I --> K
-    I --> L
-```
-
-## 🔧 Development Workflow
-
-### Local Development
-
-```mermaid
-graph TD
-    subgraph "Development Environment"
-        A[VS Code]
-        B[Git]
-        C[Docker Desktop]
-        D[PostgreSQL Local]
-    end
-
-    subgraph "Development Tools"
-        E[Hot Reload]
-        F[TypeScript Compiler]
-        G[ESLint]
-        H[Jest]
-    end
-
-    subgraph "Testing"
-        I[Unit Tests]
-        J[Integration Tests]
-        K[E2E Tests]
-        L[Load Tests]
-    end
-
-    A --> E
-    A --> F
-    A --> G
-    A --> H
-
-    E --> I
-    F --> I
-    G --> I
-    H --> I
-
-    I --> J
-    J --> K
-    K --> L
-```
-
-### CI/CD Pipeline
-
-```mermaid
-graph TD
-    subgraph "Source Control"
-        A[GitHub Repository]
-        B[Pull Request]
-        C[Code Review]
-    end
-
-    subgraph "CI Pipeline"
-        D[Code Quality]
-        E[Security Scan]
-        F[Unit Tests]
-        G[Integration Tests]
-    end
-
-    subgraph "CD Pipeline"
-        H[Build Artifacts]
-        I[Docker Images]
-        J[Deploy to Staging]
-        K[Deploy to Production]
-    end
-
-    subgraph "Monitoring"
-        L[Health Checks]
-        M[Performance Tests]
-        N[Rollback Plan]
-        O[Incident Response]
-    end
-
-    A --> B
-    B --> C
-    C --> D
-
-    D --> E
-    E --> F
-    F --> G
-
-    G --> H
-    H --> I
-    I --> J
-    J --> K
-
-    K --> L
-    L --> M
-    M --> N
-    N --> O
 ```
 
 This architecture documentation provides a comprehensive view of the BharatLaw AI system's design, components, data flows, and deployment patterns. The modular architecture ensures scalability, maintainability, and robust performance for legal document analysis and AI-powered assistance.
