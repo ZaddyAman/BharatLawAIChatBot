@@ -146,43 +146,50 @@ graph TD
 
 ```mermaid
 graph TD
+    classDef appShell fill:#3B82F6,stroke:#1E40AF,stroke-width:2px,color:#FFFFFF
+    classDef routing fill:#10B981,stroke:#047857,stroke-width:2px,color:#FFFFFF
+    classDef pages fill:#8B5CF6,stroke:#7C3AED,stroke-width:2px,color:#FFFFFF
+    classDef components fill:#F59E0B,stroke:#D97706,stroke-width:2px,color:#000000
+    classDef context fill:#6B7280,stroke:#4B5563,stroke-width:2px,color:#FFFFFF
+    classDef utilities fill:#6B7280,stroke:#4B5563,stroke-width:2px,color:#FFFFFF
+
     subgraph "Application Shell"
-        A[App.tsx]
-        B[main.tsx]
-        C[index.html]
+        A[App.tsx]:::appShell
+        B[main.tsx]:::appShell
+        C[index.html]:::appShell
     end
 
     subgraph "Routing"
-        D[AppRoutes.tsx]
-        E[ProtectedRoute.tsx]
-        F[AdminProtectedRoute.tsx]
+        D[AppRoutes.tsx]:::routing
+        E[ProtectedRoute.tsx]:::routing
+        F[AdminProtectedRoute.tsx]:::routing
     end
 
     subgraph "Pages"
-        G[LandingPage.tsx]
-        H[ChatPage.tsx]
-        I[LegalLibraryPage.tsx]
-        J[ProfilePage.tsx]
+        G[LandingPage.tsx]:::pages
+        H[ChatPage.tsx]:::pages
+        I[LegalLibraryPage.tsx]:::pages
+        J[ProfilePage.tsx]:::pages
     end
 
     subgraph "Components"
-        K[ErrorBoundary.tsx]
-        L[AsyncWrapper.tsx]
-        M[LoadingFallback.tsx]
-        N[OfflineIndicator.tsx]
+        K[ErrorBoundary.tsx]:::components
+        L[AsyncWrapper.tsx]:::components
+        M[LoadingFallback.tsx]:::components
+        N[OfflineIndicator.tsx]:::components
     end
 
     subgraph "Context & Hooks"
-        O[AuthContext.tsx]
-        P[useErrorHandler.ts]
-        Q[useAsyncWrapper.ts]
+        O[AuthContext.tsx]:::context
+        P[useErrorHandler.ts]:::context
+        Q[useAsyncWrapper.ts]:::context
     end
 
     subgraph "Utilities"
-        R[auth.ts]
-        S[chat.ts]
-        T[conversations.ts]
-        U[secureStorage.ts]
+        R[auth.ts]:::utilities
+        S[chat.ts]:::utilities
+        T[conversations.ts]:::utilities
+        U[secureStorage.ts]:::utilities
     end
 
     A --> B
